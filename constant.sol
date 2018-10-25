@@ -1,31 +1,27 @@
 pragma solidity ^0.4.25;
 
-contract Hello {
-    address public creator;
-    uint256 public num;
+contract ConstantTest {
+    uint256 public counter;
     
-    event Hi(string,address);
+    event Counter(uint256);
     constructor() public {
-        creator = msg.sender;
-        emit Hi("Create!",0);
+        
     }
     
-    function hi() public returns (uint256){
-        emit Hi("loop!",0);
-        return 100;
+    function func() public {
+        uint256 number = constantFunc();
+        counter = number;
+        emit Counter(counter);
     }
     
-    function constantF() external view returns(uint256) {
-        return num+1;
-    }
-    
-    function constantLoop() external pure returns(uint256) {
-        uint256 n = 0;
-        while(true){
-            n +=1;
+    function constantFunc() public view returns(uint256) {
+        uint256 sum=0;
+        for(uint8 i=0; i<10;i++){
+            sum = sum + i;
         }
-        return n;
+        return counter+sum;
     }
+    
     
     
 }
