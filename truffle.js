@@ -1,6 +1,6 @@
 
 const HDWalletProvider = require("truffle-hdwallet-provider-privkey");
-const privateKeys = ["PrivateKey"]; // private keys
+const privateKeys = [""]; // private keys
 
 module.exports = {
   //Network : 배포 할 네트워크에 대한 Config
@@ -12,10 +12,17 @@ module.exports = {
     },
     ropsten: {
       provider: () => {
-        return new HDWalletProvider(privateKeys, "https://ropsten.infura.io/v3/APIKEY")
+        return new HDWalletProvider(privateKeys, "https://ropsten.infura.io/v3/");
       },
       gasPrice: 10000000000,
       network_id: 3
+    },
+    coverage: {
+      host: 'localhost',
+      network_id: '*',      // eslint-disable-line camelcase
+      port: 8555,           // <-- If you change this, also set the port option in .solcover.js.
+      gas: 0xfffffffffff,   // <-- Use this high gas value
+      gasPrice: 0x01        // <-- Use this low gas price
     }
   },
   //
@@ -28,12 +35,6 @@ module.exports = {
     optimizer: {
         enabled: true,
         runs: 200
-    }
-  },
-  mocha: {
-    reporter: 'eth-gas-reporter',
-    reporterOptions : {
-      gasPrice: 21
     }
   }
 };
