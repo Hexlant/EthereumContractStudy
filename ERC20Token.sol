@@ -1,4 +1,4 @@
-pragma solidity ^0.4.25;
+pragma solidity ^0.5.0;
 import "./SafeMath.sol";
 
 contract ERC20 {
@@ -17,10 +17,10 @@ contract ERC20 {
   event Approval(address indexed _owner, address indexed _spender, uint256 _value);
   
   constructor() public{
-      name = "tokenname";
-      symbol="TKN";
+      name = "MyToken888";
+      symbol="MT8";
       decimals = 18;
-      _totalSupply = 100000 * (10**18); 
+      _mint(msg.sender,100000 * (10**18));
   }
   function totalSupply() public view returns (uint256) {
     return _totalSupply;
@@ -65,14 +65,14 @@ contract ERC20 {
   }
   
   function _mint(address account, uint256 value) internal {
-    require(account != 0);
+    require(account != address(0));
     _totalSupply = _totalSupply.add(value);
     _balances[account] = _balances[account].add(value);
     emit Transfer(address(0), account, value);
   }
 
   function _burn(address account, uint256 value) internal {
-    require(account != 0);
+    require(account != address(0));
     require(value <= _balances[account]);
 
     _totalSupply = _totalSupply.sub(value);
